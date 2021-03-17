@@ -24,9 +24,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private fun onClickListener() {
         binding.btnLogin.setOnClickListener {
-//            login()
-//            loginUser()
-            showToast("Test")
+            loginUser()
         }
         binding.btnSignUp.setOnClickListener {
             intent<SignUpActivity>(this)

@@ -23,15 +23,14 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     private fun onClickListener() {
         binding.btnSignUp.setOnClickListener {
-//            registerUser()
-            showToast("Test")
+            signUpUser()
         }
         binding.btnLogin.setOnClickListener {
             intent<LoginActivity>(this)
         }
     }
 
-    private fun registerUser() {
+    private fun signUpUser() {
 
         val fullName = binding.etFullname.text.toString().trim()
         val city = binding.etCity.text.toString().trim()
