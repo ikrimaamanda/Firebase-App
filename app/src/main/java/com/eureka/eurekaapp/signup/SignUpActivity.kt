@@ -3,6 +3,9 @@ package com.eureka.eurekaapp.signup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.eureka.eurekaapp.MainActivity
 import com.eureka.eurekaapp.R
@@ -13,13 +16,32 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
+    val gender = arrayOf("Perempuan", "Laki-laki")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_sign_up
         super.onCreate(savedInstanceState)
 
+//        configSpinnerGender()
         onClickListener()
     }
+
+//    private fun configSpinnerGender() {
+//            binding.spinnerGender.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gender)
+//            binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                }
+//
+//                override fun onItemSelected(
+//                        parent: AdapterView<*>?,
+//                        view: View?,
+//                        position: Int,
+//                        id: Long
+//                ) {
+//                    databaseReference.child("users").child("gender").setValue(gender[position])
+//                }
+//            }
+//    }
 
     private fun onClickListener() {
         binding.btnSignUp.setOnClickListener {
@@ -81,22 +103,24 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
             return
         }
 
-//        val id = databaseReference.push().key
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val user = SignUpModel(fullName, city, province, phone, email)
+                    val user = SignUpModel(fullName, city, province, phone, email, password)
                     databaseReference.child(FirebaseAuth.getInstance().currentUser.uid)
-                        .setValue(user).addOnCompleteListener {
+                            .setValue(user)
+                            .addOnCompleteListener {
                             if (it.isSuccessful) {
                                 showToast("Register Succcessfull!")
-                                intent<MainActivity>(this)
+                                intent<LoginActivity>(this)
+                                finish()
                             } else {
                                 showToast("Failed to register! Try again!")
                             }
                         }
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     showToast("Failed to register!")

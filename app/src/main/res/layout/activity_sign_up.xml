@@ -28,6 +28,13 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title_register"
             app:layout_constraintStart_toStartOf="parent"/>
 
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner_gender"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/et_fullname"-->
+<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+
         <EditText
             android:id="@+id/et_city"
             android:hint="Asal Kota/Kabupaten"
