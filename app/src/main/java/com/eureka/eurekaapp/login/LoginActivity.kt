@@ -1,25 +1,35 @@
 package com.eureka.eurekaapp.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Toast
+import android.view.View
+import androidx.fragment.app.FragmentTransaction
 import com.eureka.eurekaapp.MainActivity
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivityLoginBinding
+import com.eureka.eurekaapp.forgotpassword.ForgotPasswordFragment
 import com.eureka.eurekaapp.signup.SignUpActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
+    private lateinit var fragment : ForgotPasswordFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_login
         super.onCreate(savedInstanceState)
 
         onClickListener()
+
+    }
+
+    private fun callFragment(fragment: ForgotPasswordFragment) {
+        binding.flContainer.visibility = View.VISIBLE
+        binding.btnLogin.visibility = View.GONE
+        binding.btnSignUp.visibility = View.GONE
+        binding.btnForgotPassword.visibility = View.GONE
+
+        supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
+            FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
     }
 
     private fun onClickListener() {
@@ -28,6 +38,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
         binding.btnSignUp.setOnClickListener {
             intent<SignUpActivity>(this)
+        }
+        binding.btnForgotPassword.setOnClickListener {
+                fragment = ForgotPasswordFragment()
+                callFragment(fragment)
         }
     }
 
@@ -55,6 +69,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
+                binding.progressBar.visibility = View.VISIBLE
                 showToast("Login Successfull!")
                 intent<MainActivity>(this)
                 finish()
@@ -62,10 +77,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 showToast("Login failed!")
             }
         }
-    }
-
-    private fun showToast(message : String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
 }

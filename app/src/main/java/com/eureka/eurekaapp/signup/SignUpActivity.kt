@@ -1,13 +1,8 @@
 package com.eureka.eurekaapp.signup
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import com.eureka.eurekaapp.MainActivity
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivitySignUpBinding
@@ -106,12 +101,12 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     val user = SignUpModel(fullName, city, province, phone, email, password)
                     databaseReference.child(FirebaseAuth.getInstance().currentUser.uid)
                             .setValue(user)
                             .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                binding.progressBar.visibility = View.VISIBLE
                                 showToast("Register Succcessfull!")
                                 intent<LoginActivity>(this)
                                 finish()
@@ -122,14 +117,9 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
 
                 } else {
-                    // If sign in fails, display a message to the user.
                     showToast("Failed to register!")
                 }
 
             }
-    }
-
-    private fun showToast(message : String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 }
