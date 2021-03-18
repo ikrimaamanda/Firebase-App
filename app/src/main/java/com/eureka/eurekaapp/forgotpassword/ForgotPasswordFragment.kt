@@ -29,7 +29,7 @@ class ForgotPasswordFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container, false)
-        onClikListener()
+        onClickListener()
 
         return binding.root
     }
@@ -41,8 +41,9 @@ class ForgotPasswordFragment : Fragment() {
         activity?.finish()
     }
 
-    private fun onClikListener() {
+    private fun onClickListener() {
         binding.btnForgotPassword.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             sendEmailToResetPassword()
         }
     }
@@ -52,12 +53,14 @@ class ForgotPasswordFragment : Fragment() {
 
 
         if (email.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
             binding.etEmail.error = "Please input your email"
             binding.etEmail.requestFocus()
             return
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.progressBar.visibility = View.GONE
             binding.etEmail.error = "Email is not valid"
             binding.etEmail.requestFocus()
             return
@@ -69,9 +72,11 @@ class ForgotPasswordFragment : Fragment() {
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
+            } else {
+                binding.progressBar.visibility = View.GONE
+                showToast("Email is not registered!")
             }
         }
-
     }
 
     private fun showToast(message : String) {

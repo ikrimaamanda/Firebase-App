@@ -1,6 +1,8 @@
 package com.eureka.eurekaapp.login
 
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
@@ -11,6 +13,7 @@ import com.eureka.eurekaapp.databinding.ActivityLoginBinding
 import com.eureka.eurekaapp.forgotpassword.ForgotPasswordFragment
 import com.eureka.eurekaapp.signup.SignUpActivity
 
+
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private lateinit var fragment : ForgotPasswordFragment
@@ -18,8 +21,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         setLayout = R.layout.activity_login
         super.onCreate(savedInstanceState)
 
+        setView()
         onClickListener()
 
+    }
+
+    private fun setView() {
+        binding.svScrollView.isVerticalScrollBarEnabled = false
     }
 
     private fun callFragment(fragment: ForgotPasswordFragment) {
@@ -29,16 +37,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         binding.btnForgotPassword.visibility = View.GONE
 
         supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
-            FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
+            FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+        ).commit()
     }
 
     private fun onClickListener() {
+        binding.checkPassword.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked) {
+                // show password
+                binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+            } else {
+                // hide password
+                binding.etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }
+        }
+
         binding.btnLogin.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             loginUser()
         }
+
         binding.btnSignUp.setOnClickListener {
             intent<SignUpActivity>(this)
         }
+
         binding.btnForgotPassword.setOnClickListener {
                 fragment = ForgotPasswordFragment()
                 callFragment(fragment)
@@ -50,18 +72,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         val password = binding.etPassword.text.toString().trim()
 
         if (email.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
             binding.etEmail.error = "Please input your email"
             binding.etEmail.requestFocus()
             return
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.progressBar.visibility = View.GONE
             binding.etEmail.error = "Email is not valid"
             binding.etEmail.requestFocus()
             return
         }
 
         if (password.isEmpty() || password.length < 8) {
+            binding.progressBar.visibility = View.GONE
             binding.etPassword.error = "Password must be more than 8 characters"
             binding.etPassword.requestFocus()
             return
@@ -69,11 +94,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                binding.progressBar.visibility = View.VISIBLE
                 showToast("Login Successfull!")
                 intent<MainActivity>(this)
                 finish()
             } else {
+                binding.progressBar.visibility = View.GONE
                 showToast("Login failed!")
             }
         }
