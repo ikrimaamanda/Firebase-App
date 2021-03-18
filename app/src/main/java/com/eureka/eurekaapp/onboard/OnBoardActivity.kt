@@ -1,6 +1,5 @@
 package com.eureka.eurekaapp.onboard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity

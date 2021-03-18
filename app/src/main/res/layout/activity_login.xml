@@ -5,10 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".login.LoginActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@drawable/ic_left_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="35dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ScrollView
             android:id="@+id/sv_scroll_view"
@@ -40,14 +50,27 @@
 
                     <TextView
                         android:id="@+id/tv_title_login"
-                        android:text="Login"
+                        android:text="Welcome!"
+                        android:letterSpacing="0.1"
                         android:textSize="32sp"
                         android:textStyle="bold"
+                        android:textColor="@color/purple"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="17sp"
+                        android:text="Sign in to continue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_login"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
 
                     <TextView
                         android:id="@+id/tv_title_Email"
@@ -106,6 +129,8 @@
                     <Button
                         android:id="@+id/btn_login"
                         android:text="Login"
+                        app:backgroundTint="@null"
+                        android:background="@drawable/shape_purple"
                         android:textAllCaps="false"
                         android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
@@ -151,6 +176,6 @@
 
         </ScrollView>
 
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>

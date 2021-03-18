@@ -42,6 +42,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     }
 
     private fun onClickListener() {
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.checkPassword.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
                 // show password
