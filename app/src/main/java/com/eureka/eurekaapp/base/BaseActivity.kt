@@ -25,7 +25,7 @@ abstract class BaseActivity<ActivityBinding : ViewDataBinding> : AppCompatActivi
         binding = DataBindingUtil.setContentView(this, setLayout)
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Eureka App").child("Users")
+        databaseReference = FirebaseDatabase.getInstance().getReference("Eureka App")
     }
 
     protected inline fun <reified ActivityClass> intent(context: Context) {

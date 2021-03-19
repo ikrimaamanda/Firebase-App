@@ -1,5 +1,6 @@
 package com.eureka.eurekaapp.signup
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -15,13 +16,16 @@ import com.google.firebase.auth.FirebaseAuth
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     private val gender = arrayOf("Choose Gender", "Perempuan", "Laki-laki")
+    private val userType = arrayOf("Choose Type of User","Student", "Teacher")
+    private val major = arrayOf("Choose Major", "Science", "Social", "Language")
+    private val grade = arrayOf("Choose Grade", "Grade 10", "Grade 11", "Grade 12")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_sign_up
         super.onCreate(savedInstanceState)
 
         setView()
-        configSpinnerGender()
+        configSpinner()
         onClickListener()
     }
 
@@ -30,11 +34,25 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
     }
 
 
-    private fun configSpinnerGender() {
-            binding.spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, gender)
+    private fun configSpinner() {
+        binding.spinnerGender.background.setColorFilter(resources.getColor(R.color.soft_purple), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerGender.adapter = ArrayAdapter(this, R.layout.spinner_item, gender)
+
+        binding.spinnerUserType.background.setColorFilter(resources.getColor(R.color.soft_purple), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerUserType.adapter = ArrayAdapter(this, R.layout.spinner_item, userType)
+
+        binding.spinnerMajor.background.setColorFilter(resources.getColor(R.color.soft_purple), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerMajor.adapter = ArrayAdapter(this, R.layout.spinner_item, major)
+
+        binding.spinnerGrade.background.setColorFilter(resources.getColor(R.color.soft_purple), PorterDuff.Mode.SRC_ATOP);
+        binding.spinnerGrade.adapter = ArrayAdapter(this, R.layout.spinner_item, grade)
     }
 
     private fun onClickListener() {
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.checkPassword.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
                 // show password
@@ -50,7 +68,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
             signUpUser()
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.tvSignIn.setOnClickListener {
             intent<LoginActivity>(this)
         }
     }
@@ -64,6 +82,10 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
         val userGender = binding.spinnerGender.selectedItem.toString()
+        val schoolName = binding.etSchoolName.text.toString().trim()
+        val userType = binding.spinnerUserType.selectedItem.toString()
+        val userMajor = binding.spinnerMajor.selectedItem.toString()
+        val userGrade = binding.spinnerGrade.selectedItem.toString()
 
         if (fullName.isEmpty()) {
             binding.progressBar.visibility = View.GONE
@@ -121,21 +143,70 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
             return
         }
 
+        if ( userGender == "Choose Type of User") {
+            binding.progressBar.visibility = View.GONE
+            showToast("Please choose type of user")
+            binding.spinnerUserType.requestFocus()
+            return
+        }
+
+        if (schoolName.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
+            binding.etSchoolName.error = "Please input your school name"
+            binding.etSchoolName.requestFocus()
+            return
+        }
+
+        if ( userType == "Choose Type of User") {
+            binding.progressBar.visibility = View.GONE
+            showToast("Please choose type of user")
+            binding.spinnerUserType.requestFocus()
+            return
+        }
+
+        if ( userMajor == "Choose Major") {
+            binding.progressBar.visibility = View.GONE
+            showToast("Please choose major")
+            binding.spinnerMajor.requestFocus()
+            return
+        }
+
+        if ( userGrade == "Choose Grade") {
+            binding.progressBar.visibility = View.GONE
+            showToast("Please choose your grade")
+            binding.spinnerGrade.requestFocus()
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = SignUpModel(fullName, userGender, city, province, phone, email, password)
-                    databaseReference.child(FirebaseAuth.getInstance().currentUser.uid)
-                            .setValue(user)
+                    val userProfile = ProfileDataModel(fullName, userGender, city, province, phone, email)
+                    val userSchool = SchoolDataModel(schoolName, userType, userMajor, userGrade)
+                    databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("Profile")
+                            .setValue(userProfile)
                             .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                showToast("Register Succcessfull!")
+                                showToast("Register Successfully!")
                                 intent<LoginActivity>(this)
                                 finish()
                             } else {
                                 showToast("Failed to register! Try again!")
                             }
                         }
+
+                    databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("School")
+                            .setValue(userSchool)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    showToast("Register Successfully!")
+                                    intent<LoginActivity>(this)
+                                    finish()
+                                } else {
+                                    showToast("Failed to register! Try again!")
+                                }
+                            }
+
                 } else {
                     binding.progressBar.visibility = View.GONE
                     showToast("Failed to register!")

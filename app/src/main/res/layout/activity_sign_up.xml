@@ -6,20 +6,31 @@
     tools:context=".signup.SignUpActivity"
     >
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="35dp"
-        android:paddingVertical="16dp">
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@drawable/ic_left_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="35dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ScrollView
             android:id="@+id/sv_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingHorizontal="35dp"
                 >
 
                 <ProgressBar
@@ -33,35 +44,57 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tv_title_register"
-                    android:text="Register"
+                    android:id="@+id/tv_title_sign_up"
+                    android:text="Hi!"
+                    android:letterSpacing="0.2"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/purple_700"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="17sp"
+                    android:text="Create a new account"
+                    android:textColor="@color/soft_purple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_sign_up"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
 
                 <EditText
                     android:id="@+id/et_fullname"
                     android:hint="Full Name"
-                    android:layout_marginTop="30dp"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_register"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                        <Spinner
-                            android:id="@+id/spinner_gender"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/et_fullname"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                <Spinner
+                    android:id="@+id/spinner_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/et_fullname"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
                 <EditText
                     android:id="@+id/et_city"
                     android:hint="Asal Kota/Kabupaten"
+                    android:backgroundTint="@color/soft_purple"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/spinner_gender"
@@ -70,6 +103,9 @@
                 <EditText
                     android:id="@+id/et_provinsi"
                     android:hint="Asal Provinsi"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/et_city"
@@ -78,23 +114,67 @@
                 <EditText
                     android:id="@+id/et_phone"
                     android:hint="Nomor HP"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/et_provinsi"
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <EditText
-                    android:id="@+id/et_email"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
+                    android:id="@+id/et_school_name"
+                    android:hint="Name of school"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/et_phone"
                     app:layout_constraintStart_toStartOf="parent"/>
 
+                <Spinner
+                    android:id="@+id/spinner_user_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/et_school_name"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <Spinner
+                    android:id="@+id/spinner_major"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_user_type"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <Spinner
+                    android:id="@+id/spinner_grade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_major"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:hint="Email"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_grade"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
                 <EditText
                     android:id="@+id/et_password"
                     android:hint="Kata sandi"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/soft_purple"
+                    android:textColor="@color/purple_700"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,6 +191,7 @@
                 <TextView
                     android:id="@+id/tv_show_password"
                     android:text="Show Password"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toEndOf="@id/check_password"
@@ -120,26 +201,79 @@
                 <Button
                     android:id="@+id/btn_sign_up"
                     android:text="Sign Up"
-                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/poppins_bold"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/shape_purple"
                     android:layout_marginTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/check_password"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
 
-                <Button
-                    android:id="@+id/btn_login"
-                    android:text="Login Here"
-                    android:textAllCaps="false"
+                <TextView
+                    android:id="@+id/tv_or"
+                    android:text="or"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/btn_sign_up"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_no_account"
+                    android:text="Already have an account?"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_or"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sign_in"
+                    android:text="Sign In"
+                    android:textColor="@color/purple_700"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_no_account"
+                    app:layout_constraintTop_toTopOf="@id/tv_no_account"
+                    app:layout_constraintStart_toEndOf="@id/tv_no_account"/>
+
+                <View
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toTopOf="@id/tv_or"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_or"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_or"
+                    />
+
+                <View
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toTopOf="@id/tv_or"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_or"
+                    app:layout_constraintStart_toEndOf="@id/tv_or"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>
