@@ -55,7 +55,7 @@
                         android:textSize="32sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/purple_700"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -65,7 +65,6 @@
                     <TextView
                         android:id="@+id/tv_description"
                         android:fontFamily="@font/poppins_regular"
-                        android:textStyle="bold"
                         android:textSize="17sp"
                         android:text="Sign in to continue"
                         android:textColor="@color/soft_purple"
@@ -78,7 +77,6 @@
                     <EditText
                         android:id="@+id/et_email"
                         android:hint="user@email.com"
-                        android:textStyle="bold"
                         android:fontFamily="@font/poppins_regular"
                         android:textColorHint="@color/soft_purple"
                         android:textColor="@color/purple_700"
@@ -92,7 +90,6 @@
                     <EditText
                         android:id="@+id/et_password"
                         android:hint="********"
-                        android:textStyle="bold"
                         android:fontFamily="@font/poppins_regular"
                         android:textColorHint="@color/soft_purple"
                         android:textColor="@color/purple_700"
@@ -131,8 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/check_password"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"/>
 
                     <TextView
                         android:id="@+id/tv_forgot_password"
@@ -164,12 +160,11 @@
                         android:layout_marginTop="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
                         app:layout_constraintTop_toBottomOf="@id/tv_or"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginRight="40dp"
+                        android:layout_marginRight="50dp"
                         />
 
                     <TextView
