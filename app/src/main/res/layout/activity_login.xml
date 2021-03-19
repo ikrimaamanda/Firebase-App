@@ -121,6 +121,8 @@
                     <Button
                         android:id="@+id/btn_login"
                         android:text="Login"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true"
                         android:fontFamily="@font/poppins_bold"
                         app:backgroundTint="@null"
                         android:background="@drawable/shape_purple"

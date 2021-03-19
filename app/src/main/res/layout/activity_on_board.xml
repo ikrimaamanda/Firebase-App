@@ -45,6 +45,8 @@
         <Button
             android:id="@+id/btn_login"
             android:text="Login"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
             app:backgroundTint="@null"
             android:background="@drawable/shape_purple"
             android:fontFamily="@font/poppins_bold"
@@ -58,6 +60,7 @@
         <Button
             android:id="@+id/btn_sign_up"
             android:text="Sign Up"
+            android:textAllCaps="true"
             app:backgroundTint="@null"
             android:background="@drawable/shape_white_stroke_purple"
             android:textColor="@color/purple"

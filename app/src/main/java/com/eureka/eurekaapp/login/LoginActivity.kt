@@ -30,17 +30,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         binding.svScrollView.isVerticalScrollBarEnabled = false
     }
 
-    private fun callFragment(fragment: ForgotPasswordFragment) {
-        binding.flContainer.visibility = View.VISIBLE
-//        binding.btnLogin.visibility = View.GONE
-//        binding.tvSignUp.visibility = View.GONE
-//        binding.tvForgotPassword.visibility = View.GONE
-
-        supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
-            FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-        ).commit()
-    }
-
     private fun onClickListener() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
@@ -98,7 +87,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                showToast("Login Successfull!")
+                showToast("Login Successfully!")
                 intent<MainActivity>(this)
                 finish()
             } else {
@@ -106,6 +95,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 showToast("Login failed!")
             }
         }
+    }
+
+    private fun callFragment(fragment: ForgotPasswordFragment) {
+        binding.flContainer.visibility = View.VISIBLE
+
+        supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
+                FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+        ).commit()
     }
 
 }
