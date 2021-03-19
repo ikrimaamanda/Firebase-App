@@ -18,10 +18,12 @@ class OnBoardActivity : BaseActivity<ActivityOnBoardBinding>() {
     private fun onClickListener() {
         binding.btnLogin.setOnClickListener {
             intent<LoginActivity>(this)
+            finish()
         }
 
         binding.btnSignUp.setOnClickListener {
             intent<SignUpActivity>(this)
+            finish()
         }
 
     }

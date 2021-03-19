@@ -11,6 +11,7 @@ import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivitySignUpBinding
 import com.eureka.eurekaapp.login.LoginActivity
+import com.eureka.eurekaapp.onboard.OnBoardActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
@@ -27,6 +28,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         setView()
         configSpinner()
         onClickListener()
+    }
+
+    override fun onBackPressed() {
+        intent<OnBoardActivity>(this)
+        super.onBackPressed()
     }
 
     private fun setView() {
@@ -181,8 +187,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val userProfile = ProfileDataModel(fullName, userGender, city, province, phone, email)
-                    val userSchool = SchoolDataModel(schoolName, userType, userMajor, userGrade)
+                    val userProfile = ProfileDataModel(fullName, userGender, city, province, phone, email, schoolName, userType, userMajor, userGrade)
                     databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("Profile")
                             .setValue(userProfile)
                             .addOnCompleteListener {
@@ -194,18 +199,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                                 showToast("Failed to register! Try again!")
                             }
                         }
-
-                    databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("School")
-                            .setValue(userSchool)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    showToast("Register Successfully!")
-                                    intent<LoginActivity>(this)
-                                    finish()
-                                } else {
-                                    showToast("Failed to register! Try again!")
-                                }
-                            }
 
                 } else {
                     binding.progressBar.visibility = View.GONE

@@ -11,12 +11,14 @@ import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivityLoginBinding
 import com.eureka.eurekaapp.forgotpassword.ForgotPasswordFragment
+import com.eureka.eurekaapp.onboard.OnBoardActivity
 import com.eureka.eurekaapp.signup.SignUpActivity
 
 
-class LoginActivity : BaseActivity<ActivityLoginBinding>() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(){
 
     private lateinit var fragment : ForgotPasswordFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_login
         super.onCreate(savedInstanceState)
@@ -24,6 +26,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         setView()
         onClickListener()
 
+    }
+
+    override fun onBackPressed() {
+        intent<OnBoardActivity>(this)
+        super.onBackPressed()
     }
 
     private fun setView() {
@@ -87,12 +94,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                showToast("Login Successfully!")
+                showToast("Welcome!")
                 intent<MainActivity>(this)
                 finish()
             } else {
                 binding.progressBar.visibility = View.GONE
-                showToast("Login failed!")
+                showToast("Login Failed!")
             }
         }
     }

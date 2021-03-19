@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_left_arrow" />
-                            <entry key="sourceFile" value="E:\ic_left_arrow.svg" />
+                            <entry key="outputName" value="ic_splash_screen" />
+                            <entry key="sourceFile" value="E:\ic_splash_screen.svg" />
                           </map>
                         </option>
                       </PersistentState>
