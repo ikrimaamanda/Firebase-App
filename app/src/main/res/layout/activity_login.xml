@@ -54,7 +54,8 @@
                         android:letterSpacing="0.1"
                         android:textSize="32sp"
                         android:textStyle="bold"
-                        android:textColor="@color/purple"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="@color/black"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -64,54 +65,47 @@
                     <TextView
                         android:id="@+id/tv_description"
                         android:fontFamily="@font/poppins_regular"
+                        android:textStyle="bold"
                         android:textSize="17sp"
                         android:text="Sign in to continue"
+                        android:textColor="@color/soft_purple"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/tv_title_login"
                         app:layout_constraintStart_toStartOf="parent"
                         />
 
-                    <TextView
-                        android:id="@+id/tv_title_Email"
-                        android:text="Email"
-                        android:textSize="22sp"
-                        android:layout_marginTop="50dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_login"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
                     <EditText
                         android:id="@+id/et_email"
-                        android:hint="Username"
+                        android:hint="user@email.com"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColorHint="@color/soft_purple"
+                        android:textColor="@color/purple_700"
+                        android:layout_marginTop="30dp"
                         android:inputType="textEmailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_Email"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
-                    <TextView
-                        android:id="@+id/tv_title_password"
-                        android:text="Password"
-                        android:textSize="22sp"
-                        android:layout_marginTop="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/et_email"
+                        app:layout_constraintTop_toBottomOf="@id/tv_description"
                         app:layout_constraintStart_toStartOf="parent"/>
 
                     <EditText
                         android:id="@+id/et_password"
                         android:hint="********"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColorHint="@color/soft_purple"
+                        android:textColor="@color/purple_700"
+                        android:layout_marginTop="30dp"
                         android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_password"
+                        app:layout_constraintTop_toBottomOf="@id/et_email"
                         app:layout_constraintStart_toStartOf="parent"/>
 
                     <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/check_password"
+                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/et_password"
@@ -120,6 +114,7 @@
                     <TextView
                         android:id="@+id/tv_show_password"
                         android:text="Show Password"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toEndOf="@id/check_password"
@@ -129,34 +124,85 @@
                     <Button
                         android:id="@+id/btn_login"
                         android:text="Login"
+                        android:fontFamily="@font/poppins_bold"
                         app:backgroundTint="@null"
                         android:background="@drawable/shape_purple"
-                        android:textAllCaps="false"
                         android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/check_password"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <Button
-                        android:id="@+id/btn_sign_up"
-                        android:text="Sign Up Here"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="30dp"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_forgot_password"
+                        android:text="Forgot Password?"
+                        android:textSize="17dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/btn_login"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <Button
-                        android:id="@+id/btn_forgot_password"
-                        android:text="Forgot Password"
-                        android:textAllCaps="false"
+                    <TextView
+                        android:id="@+id/tv_or"
+                        android:text="or"
+                        android:fontFamily="@font/poppins_regular"
                         android:layout_marginTop="30dp"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/btn_sign_up"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/tv_forgot_password"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_no_account"
+                        android:text="Don't have an account?"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        app:layout_constraintTop_toBottomOf="@id/tv_or"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="40dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_sign_up"
+                        android:text="Sign Up"
+                        android:textColor="@color/purple_700"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_no_account"
+                        app:layout_constraintTop_toTopOf="@id/tv_no_account"
+                        app:layout_constraintStart_toEndOf="@id/tv_no_account"/>
+
+                    <View
+                        android:layout_width="150dp"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        app:layout_constraintTop_toTopOf="@id/tv_or"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_or"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_or"
+                        />
+
+                    <View
+                        android:layout_width="150dp"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        app:layout_constraintTop_toTopOf="@id/tv_or"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_or"
+                        app:layout_constraintStart_toEndOf="@id/tv_or"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

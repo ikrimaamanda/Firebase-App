@@ -32,9 +32,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private fun callFragment(fragment: ForgotPasswordFragment) {
         binding.flContainer.visibility = View.VISIBLE
-        binding.btnLogin.visibility = View.GONE
-        binding.btnSignUp.visibility = View.GONE
-        binding.btnForgotPassword.visibility = View.GONE
+//        binding.btnLogin.visibility = View.GONE
+//        binding.tvSignUp.visibility = View.GONE
+//        binding.tvForgotPassword.visibility = View.GONE
 
         supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
             FragmentTransaction.TRANSIT_FRAGMENT_OPEN
@@ -61,11 +61,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             loginUser()
         }
 
-        binding.btnSignUp.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             intent<SignUpActivity>(this)
         }
 
-        binding.btnForgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
                 fragment = ForgotPasswordFragment()
                 callFragment(fragment)
         }
