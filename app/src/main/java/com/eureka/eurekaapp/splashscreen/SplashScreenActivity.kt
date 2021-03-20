@@ -15,7 +15,7 @@ class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>(), Update
         setLayout = R.layout.activity_splash_screen
         super.onCreate(savedInstanceState)
 
-        val        currentUser = auth.currentUser
+        val currentUser = auth.currentUser
 
         val handler = Handler(mainLooper)
         handler.postDelayed({

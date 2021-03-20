@@ -2,6 +2,7 @@ package com.eureka.eurekaapp
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivityMainBinding
 import com.eureka.eurekaapp.login.LoginActivity
@@ -27,11 +28,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("Profile").addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userProfile = snapshot.getValue(ProfileDataModel::class.java)
+                binding.progressBar.visibility = View.VISIBLE
 
                 if (userProfile != null) {
                     binding.tvEmail.text = userProfile.email
                     binding.tvName.text = userProfile.fullName
                     binding.tvSchool.text = userProfile.schoolName
+                    binding.progressBar.visibility = View.GONE
                 }
             }
 
