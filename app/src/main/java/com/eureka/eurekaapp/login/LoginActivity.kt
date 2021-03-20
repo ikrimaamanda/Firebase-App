@@ -6,6 +6,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import com.eureka.eurekaapp.MainActivity
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
@@ -18,13 +19,20 @@ import com.eureka.eurekaapp.signup.SignUpActivity
 class LoginActivity : BaseActivity<ActivityLoginBinding>(){
 
     private lateinit var fragment : ForgotPasswordFragment
+    private lateinit var viewModel : LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_login
         super.onCreate(savedInstanceState)
 
         setView()
+
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        viewModel.setFirebaseAuth(auth)
+
         onClickListener()
+
+        subscribeLoginLiveData()
 
     }
 
@@ -92,16 +100,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(){
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful) {
-                showToast("Welcome!")
-                intent<MainActivity>(this)
-                finish()
-            } else {
-                binding.progressBar.visibility = View.GONE
-                showToast("Login Failed!")
-            }
-        }
+        viewModel.setFirebase(email, password)
+
     }
 
     private fun callFragment(fragment: ForgotPasswordFragment) {
@@ -110,6 +110,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(){
         supportFragmentManager.beginTransaction().replace(R.id.fl_container, fragment).setTransition(
                 FragmentTransaction.TRANSIT_FRAGMENT_OPEN
         ).commit()
+    }
+
+    private fun subscribeLoginLiveData() {
+        viewModel.isLoginLiveData.observe(this, {
+            if (it){
+                showToast("Welcome!")
+                intent<MainActivity>(this)
+                finish()
+            } else {
+                binding.progressBar.visibility = View.GONE
+                showToast("Login Failed!")
+            }
+        })
     }
 
 }
