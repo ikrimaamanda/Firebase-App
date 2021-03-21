@@ -7,12 +7,12 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivitySignUpBinding
 import com.eureka.eurekaapp.login.LoginActivity
 import com.eureka.eurekaapp.onboard.OnBoardActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
@@ -20,14 +20,20 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
     private val userType = arrayOf("Choose Type of User","Student", "Teacher")
     private val major = arrayOf("Choose Major", "Science", "Social", "Language")
     private val grade = arrayOf("Choose Grade", "Grade 10", "Grade 11", "Grade 12")
+    private lateinit var viewModel : SignUpViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_sign_up
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        viewModel.setFirebaseAuth(auth)
+        viewModel.setDatabaseReference(databaseReference)
+
         setView()
         configSpinner()
         onClickListener()
+        subscribeSignUpLiveData()
     }
 
     override fun onBackPressed() {
@@ -184,26 +190,20 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
             return
         }
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val userProfile = ProfileDataModel(fullName, userGender, city, province, phone, email, schoolName, userType, userMajor, userGrade)
-                    databaseReference.child("Users").child(FirebaseAuth.getInstance().currentUser.uid).child("Profile")
-                            .setValue(userProfile)
-                            .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                showToast("Register Successfully!")
-                                intent<LoginActivity>(this)
-                                finish()
-                            } else {
-                                showToast("Failed to register! Try again!")
-                            }
-                        }
+        viewModel.setSignUpUser(email, password, fullName, userGender, city, province, phone, schoolName, userType, userMajor, userGrade)
 
-                } else {
-                    binding.progressBar.visibility = View.GONE
-                    showToast("Failed to register!")
-                }
+    }
+
+    private fun subscribeSignUpLiveData() {
+        viewModel.isSignUpLiveData.observe(this, {
+            if (it) {
+                showToast("Register Successfully!")
+                intent<LoginActivity>(this)
+                finish()
+            } else {
+                binding.progressBar.visibility = View.GONE
+                showToast("Failed to register!")
             }
+        })
     }
 }

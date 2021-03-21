@@ -2,7 +2,7 @@ package com.eureka.eurekaapp.splashscreen
 
 import android.os.Bundle
 import android.os.Handler
-import com.eureka.eurekaapp.MainActivity
+import com.eureka.eurekaapp.maincontent.MainActivity
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.`interface`.UpdateUserID
 import com.eureka.eurekaapp.base.BaseActivity

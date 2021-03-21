@@ -7,7 +7,7 @@ import android.util.Patterns
 import android.view.View
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import com.eureka.eurekaapp.MainActivity
+import com.eureka.eurekaapp.maincontent.MainActivity
 import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivityLoginBinding

@@ -1,8 +1,9 @@
-package com.eureka.eurekaapp
+package com.eureka.eurekaapp.maincontent
 
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import com.eureka.eurekaapp.R
 import com.eureka.eurekaapp.base.BaseActivity
 import com.eureka.eurekaapp.databinding.ActivityMainBinding
 import com.eureka.eurekaapp.login.LoginActivity
